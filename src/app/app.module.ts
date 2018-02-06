@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { PoneyComponent } from './components/poney/poney.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PoneyComponent
   ],
   imports: [
     BrowserModule
