@@ -1,0 +1,10 @@
+<div *ngFor="let poney of ponies | health; let i = index;">
+  <app-poney
+    (win)="stopRace($event)"
+    [poney]="poney"
+    appHighlight
+    [color]="i % 2 ? '#848484' : 'white'"
+  ></app-poney>
+</div>
+
+<button (click)="displayHealthyPonies()">Afficher les poneys en bonne santé</button>

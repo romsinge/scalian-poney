@@ -5,8 +5,4 @@
   </h1>
 </div>
 
-<app-poney appHighlight color="#848484" (win)="stopRace($event)" *ngIf="ponies[0].isHealthy" [poney]="ponies[0]"></app-poney>
-<app-poney (win)="stopRace($event)" *ngIf="ponies[1].isHealthy" [poney]="ponies[1]"></app-poney>
-<app-poney (win)="stopRace($event)" *ngIf="ponies[2].isHealthy" [poney]="ponies[2]"></app-poney>
-<app-poney (win)="stopRace($event)" *ngIf="ponies[3].isHealthy" [poney]="ponies[3]"></app-poney>
-
+<app-race></app-race>

@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { PoneyComponent } from './components/poney/poney.component';
 import { RainbowDirective } from './directives/rainbow.directive';
 import { HighlightDirective } from './directives/highlight.directive';
+import { HealthPipe } from './pipes/health.pipe';
+import { RaceService } from './services/race.service';
+import { RaceComponent } from './components/race/race.component';
 
 
 @NgModule({
@@ -14,13 +17,18 @@ import { HighlightDirective } from './directives/highlight.directive';
     AppComponent,
     PoneyComponent,
     RainbowDirective,
-    HighlightDirective
+    HighlightDirective,
+    HealthPipe,
+    RaceComponent
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    HealthPipe,
+    RaceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 <div class="line">
-  <div [ngbPopover]="' est à ' + poney.distance + 'm'" triggers="mouseenter:mouseleave" [popoverTitle]="poney.name" class="poney" [style.left]="poney.distance + '%'">
+  <div [ngbPopover]="' est à ' + poney.distance + 'm'" triggers="mouseenter:mouseleave" [popoverTitle]="poney.name | uppercase" class="poney" [style.left]="poney.distance + '%'">
     <img [src]="poney.image" appRainbow />
   </div>
 </div>

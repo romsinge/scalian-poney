@@ -22,7 +22,7 @@ export class PoneyComponent {
   ngDoCheck() {
     if (this.poney.distance >= 90) {
       this.win.emit(this.poney)
-      this.el.nativeElement.style.backgroundColor = "silver"
+      this.el.nativeElement.style.backgroundColor = "gold"
     }
   }
 }
