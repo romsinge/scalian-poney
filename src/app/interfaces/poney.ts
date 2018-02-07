@@ -3,4 +3,5 @@ export interface Poney {
   name: string;
   distance: number;
   image: string;
+  isHealthy?: boolean;
 }
