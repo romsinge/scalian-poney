@@ -8,8 +8,9 @@ import { Poney } from './interfaces/poney'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  label = 'Romain';
-  title = `Monsieur ${this.label}`;
+  label: string = 'Romain';
+  title: string = `the Race`;
+  raceInterval
 
   ponies: Poney[] = [
     {
@@ -32,17 +33,21 @@ export class AppComponent {
     }
   ]
 
-  ngOnInit() {
-    let raceInterval = setInterval(() => {
+  handleClick(): void {
+    console.log("coucou")
+  }
+
+  stopRace(winner: Poney): void {
+    clearInterval(this.raceInterval)
+    console.log(`${winner.name} a gagné`)
+  }
+
+  ngOnInit(): void {
+    this.raceInterval = setInterval(() => {
       
       this.ponies.forEach(poney => {
-        let newDistance = Math.floor(Math.random()* 10) 
+        let newDistance = Math.floor(Math.random()* 10)
         poney.distance += newDistance
-
-        if (poney.distance >= 100) {
-          clearInterval(raceInterval)
-          console.log(`${poney.name} a gagné`)
-        }
       })
     }, 500)
   }

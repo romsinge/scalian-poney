@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Poney } from '../../interfaces/poney';
 
 @Component({
@@ -6,9 +6,9 @@ import { Poney } from '../../interfaces/poney';
   templateUrl: './poney.component.html',
   styleUrls: ['./poney.component.css']
 })
-export class PoneyComponent implements OnInit {
+export class PoneyComponent {
 
-  constructor() { }
+  constructor(private el: ElementRef) {}
 
   @Input() poney: Poney = {
     name: "",
@@ -17,7 +17,12 @@ export class PoneyComponent implements OnInit {
     image: "http://ponyracer.ninja-squad.com/assets/images/pony-green-running.gif"
   }
 
-  ngOnInit() {
-  }
+  @Output() win: EventEmitter<Poney> = new EventEmitter()
 
+  ngDoCheck() {
+    if (this.poney.distance >= 90) {
+      this.win.emit(this.poney)
+      this.el.nativeElement.style.backgroundColor = "silver"
+    }
+  }
 }

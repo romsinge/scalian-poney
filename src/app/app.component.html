@@ -1,11 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
+  <h1 (click)="handleClick()">
     Welcome to {{ title }}!
   </h1>
 </div>
 
-<app-poney [poney]="ponies[0]"></app-poney>
-<app-poney [poney]="ponies[1]"></app-poney>
-<app-poney [poney]="ponies[2]"></app-poney>
+<app-poney appHighlight color="#848484" (win)="stopRace($event)" [poney]="ponies[0]"></app-poney>
+<app-poney (win)="stopRace($event)" [poney]="ponies[1]"></app-poney>
+<app-poney (win)="stopRace($event)" [poney]="ponies[2]"></app-poney>
 

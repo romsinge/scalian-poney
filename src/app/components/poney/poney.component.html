@@ -1,2 +1,5 @@
-<img [src]="poney.image" />
-<h2>{{ poney.id + " : " + poney.name + " est à " + poney.distance + "m" }}</h2>
+<div class="line">
+  <div [ngbPopover]="' est à ' + poney.distance + 'm'" triggers="mouseenter:mouseleave" [popoverTitle]="poney.name" class="poney" [style.left]="poney.distance + '%'">
+    <img [src]="poney.image" appRainbow />
+  </div>
+</div>
