@@ -1,70 +1,50 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Poney } from '../interfaces/poney';
 import { Race } from '../interfaces/race';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/filter'
 
 @Injectable()
 export class RaceService {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
-  ponies: Poney[] = [
-    {
-      id: 0,
-      name: "Louis",
-      distance: 0,
-      image: "http://ponyracer.ninja-squad.com/assets/images/pony-green-running.gif",
-      isHealthy: true
-    },
-    {
-      id: 1,
-      name: "Serge",
-      distance: 0,
-      image: "http://ponyracer.ninja-squad.com/assets/images/pony-purple-running.gif",
-      isHealthy: true
-    },
-    {
-      id: 2,
-      name: "Mathilde",
-      distance: 0,
-      image: "http://ponyracer.ninja-squad.com/assets/images/pony-orange-running.gif"
-    },
-    {
-      id: 3,
-      name: "Ragnar",
-      distance: 0,
-      image: "http://ponyracer.ninja-squad.com/assets/images/pony-blue-running.gif",
-      isHealthy: true
-    }
-  ]
+  ponies: Poney[] = []
 
-  races: Race[] = [
-    {
-      id: 0,
-      name: "Tokyo",
-      poneyIds: [0, 1, 2]
-    },
-    {
-      id: 1,
-      name: "Singapour",
-      poneyIds: [0, 1, 3]
-    },
-    {
-      id: 2,
-      name: "New Delhi",
-      poneyIds: [1, 2, 3]
-    }
-  ]
+  races: Race[] = []
 
   getPonies(): Poney[] {
     return this.ponies
   }
   
-  getPoniesById(poneyIds: number[]): Poney[] {
-    return this.ponies.filter(poney => poneyIds.includes(poney.id))
+  getPoniesById(poneyIds: number[]): Observable<Poney[]> {
+    let ponies$ = this.http.get('http://localhost:3000/ponies').map(response => {
+      return <Poney[]>response.json()
+    }).map(ponies => {
+      return ponies.filter(poney => {
+        return poneyIds.includes(poney.id)
+      })
+    })
+
+    ponies$.subscribe(ponies => {
+      this.ponies = ponies
+    })
+
+    return ponies$
   }
 
-  getRaces(): Race[] {
-    return this.races
+  getRaces(): Observable<Race[]> {
+    let races$ = this.http.get('http://localhost:3000/races').map(response => {
+      return <Race[]>response.json()
+    })
+
+    races$.subscribe(races => {
+      this.races = races
+    })
+
+    return races$
   }
 
   getRaceById(id: number): Race {
@@ -73,4 +53,9 @@ export class RaceService {
     })
   }
 
+  resetPonies() {
+    this.ponies.forEach(poney => {
+      poney.distance = 0
+    })
+  }
 }

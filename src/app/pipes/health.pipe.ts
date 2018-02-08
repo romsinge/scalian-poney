@@ -7,7 +7,11 @@ import { Poney } from '../interfaces/poney';
 export class HealthPipe implements PipeTransform {
 
   transform(ponies: Poney[], args?: any): Poney[] {
-    return ponies.filter(poney => poney.isHealthy)
+    if (!!ponies) {
+      return ponies.filter(poney => poney.isHealthy)
+    } else {
+      return []
+    }
   }
 
 }

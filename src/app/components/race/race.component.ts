@@ -15,6 +15,7 @@ export class RaceComponent implements OnInit {
 
   raceInterval
   ponies: Poney[]
+  ponies$: Observable<Poney[]>
   raceId$: Observable<number>
   
   constructor(
@@ -23,30 +24,28 @@ export class RaceComponent implements OnInit {
     private routeParams: ActivatedRoute
   ) {}
 
-  handleClick(): void {
-    console.log("coucou")
-  }
-
-  stopRace(winner: Poney): void {
+  stopRace(winner?: Poney): void {
     clearInterval(this.raceInterval)
-    console.log(`${winner.name} a gagné`)
-  }
 
-  displayHealthyPonies(): void {
-    let healthyPonies: Poney[] = this.healthPipe.transform(this.ponies)
-    console.log(healthyPonies)
+    if(!!winner) {
+      console.log(`${winner.name} a gagné`)
+    }
   }
 
   startRace(poneyIds: number[]): void {
-    this.ponies = this.raceService.getPoniesById(poneyIds)
+    this.ponies$ = this.raceService.getPoniesById(poneyIds)
 
-    this.raceInterval = setInterval(() => {
-      
-      this.ponies.forEach(poney => {
-        let newDistance = Math.floor(Math.random()* 10)
-        poney.distance += newDistance
-      })
-    }, 500)
+    this.ponies$.subscribe(ponies => {
+      this.ponies = ponies
+
+      this.raceInterval = setInterval(() => {
+        
+        this.ponies.forEach(poney => {
+          let newDistance = Math.floor(Math.random()* 10)
+          poney.distance += newDistance
+        })
+      }, 500)
+    })
   }
 
   ngOnInit(): void {
@@ -60,6 +59,15 @@ export class RaceComponent implements OnInit {
   
       this.startRace(race.poneyIds)
     })
+  }
+
+  resetRaces() {
+    this.stopRace()
+    this.raceService.resetPonies()
+  }
+
+  ngOnDestroy() {
+    this.resetRaces()
   }
 
 }

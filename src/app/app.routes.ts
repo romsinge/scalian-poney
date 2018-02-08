@@ -6,7 +6,7 @@ export const rootRouterConfig: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'prefix'
+    pathMatch: 'full'
   },
   {
     path: 'home',
@@ -19,6 +19,6 @@ export const rootRouterConfig: Routes = [
   {
     path: '**',
     redirectTo: 'home',
-    pathMatch: 'prefix'
+    pathMatch: 'full'
   }
 ]

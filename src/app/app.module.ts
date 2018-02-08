@@ -13,6 +13,7 @@ import { RaceService } from './services/race.service';
 import { RaceComponent } from './components/race/race.component';
 import { HomeComponent } from './components/home/home.component';
 import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http'
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(rootRouterConfig)
+    RouterModule.forRoot(rootRouterConfig),
+    HttpModule
   ],
   providers: [
     HealthPipe,
