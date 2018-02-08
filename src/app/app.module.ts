@@ -1,3 +1,4 @@
+import { rootRouterConfig } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +11,8 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { HealthPipe } from './pipes/health.pipe';
 import { RaceService } from './services/race.service';
 import { RaceComponent } from './components/race/race.component';
+import { HomeComponent } from './components/home/home.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -19,11 +22,13 @@ import { RaceComponent } from './components/race/race.component';
     RainbowDirective,
     HighlightDirective,
     HealthPipe,
-    RaceComponent
+    RaceComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    RouterModule.forRoot(rootRouterConfig)
   ],
   providers: [
     HealthPipe,

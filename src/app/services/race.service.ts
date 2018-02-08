@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Poney } from '../interfaces/poney';
+import { Race } from '../interfaces/race';
 
 @Injectable()
 export class RaceService {
@@ -36,8 +37,40 @@ export class RaceService {
     }
   ]
 
+  races: Race[] = [
+    {
+      id: 0,
+      name: "Tokyo",
+      poneyIds: [0, 1, 2]
+    },
+    {
+      id: 1,
+      name: "Singapour",
+      poneyIds: [0, 1, 3]
+    },
+    {
+      id: 2,
+      name: "New Delhi",
+      poneyIds: [1, 2, 3]
+    }
+  ]
+
   getPonies(): Poney[] {
     return this.ponies
+  }
+  
+  getPoniesById(poneyIds: number[]): Poney[] {
+    return this.ponies.filter(poney => poneyIds.includes(poney.id))
+  }
+
+  getRaces(): Race[] {
+    return this.races
+  }
+
+  getRaceById(id: number): Race {
+    return this.races.find(race => {
+      return race.id == id
+    })
   }
 
 }

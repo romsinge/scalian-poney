@@ -2,6 +2,9 @@ import { RaceService } from './../../services/race.service';
 import { Component, OnInit } from '@angular/core';
 import { Poney } from '../../interfaces/poney'
 import { HealthPipe } from '../../pipes/health.pipe';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-race',
@@ -12,10 +15,12 @@ export class RaceComponent implements OnInit {
 
   raceInterval
   ponies: Poney[]
+  raceId$: Observable<number>
   
   constructor(
     private healthPipe: HealthPipe,
-    private raceService: RaceService
+    private raceService: RaceService,
+    private routeParams: ActivatedRoute
   ) {}
 
   handleClick(): void {
@@ -32,8 +37,8 @@ export class RaceComponent implements OnInit {
     console.log(healthyPonies)
   }
 
-  ngOnInit(): void {
-    this.ponies = this.raceService.getPonies()
+  startRace(poneyIds: number[]): void {
+    this.ponies = this.raceService.getPoniesById(poneyIds)
 
     this.raceInterval = setInterval(() => {
       
@@ -42,6 +47,19 @@ export class RaceComponent implements OnInit {
         poney.distance += newDistance
       })
     }, 500)
+  }
+
+  ngOnInit(): void {
+    this.raceId$ = this.routeParams.params.map(params => {
+      return <number>params.raceId
+    })
+
+    this.raceId$.subscribe(raceId => {
+
+      let race = this.raceService.getRaceById(raceId)
+  
+      this.startRace(race.poneyIds)
+    })
   }
 
 }
